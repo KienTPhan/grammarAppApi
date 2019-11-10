@@ -39,6 +39,12 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    protected function registered(Request $request, $user)
+    {
+        $user->generateToken();
+
+        return response()->json(['data' => $user->toArray()], 201);
+    }
 
     /**
      * Get a validator for an incoming registration request.
